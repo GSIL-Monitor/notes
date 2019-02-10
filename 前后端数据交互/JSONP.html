@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSONP跨域</title>
+</head>
+<body>
+<div id="root">init data</div>
+<button id="btn">点击改变内容</button>
+<script>
+    let root = document.getElementById("root");
+    let btn = document.getElementById("btn");
+    let url = "http://localhost:8080/jsonp?callback=monkey";
+
+    function monkey(data) {
+        root.innerText = data.name;
+    }
+
+    btn.addEventListener("click", function () {
+        let script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        script.src = url;
+        document.body.appendChild(script);
+    })
+</script>
+</body>
+</html>

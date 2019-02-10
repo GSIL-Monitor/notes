@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>d3.select</title>
+    <script src="../../resource/d3.min.js"></script>
+</head>
+<body>
+<div class="className">className</div>
+<div class="className">className</div>
+<div class="className">className</div>
+<div id="idName">
+    <p>1</p>
+    <p>2</p>
+</div>
+<div>3</div>
+<div>4</div>
+<script>
+	var body = d3.select("body"); // 选中body元素标签
+	var div = d3.select("div"); // 选中第一个div元素标签
+	var div1 = d3.selectAll(".className"); // 选中类名为className的元素标签
+	var div2 = d3.select("#idName"); // 选中id为idName的元素标签
+    var tmp=d3.select("div:nth-child(2)");
+
+
+	console.log("body:",body);
+	console.log("div:",div);
+	console.log("div1:",div1);
+	console.log("div2:",div2);
+    console.log("tmp:",tmp)
+
+	// 选择集 选择 后代元素    selection.select("p")
+	var p1=div2.select("p");
+    console.log("p1:",p1);
+
+    var p2=body.select("p");
+    console.log("p2",p2);
+
+
+</script>
+</body>
+</html>

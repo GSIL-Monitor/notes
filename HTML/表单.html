@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <fieldset>
+        <legend>表单域标题</legend>
+        <form action="get">
+            <label for="text">文本框：</label>
+            <input id="text" type="text"/>
+            <label for="button">按钮：</label>
+            <input type="button" value="按钮" id="button"/>
+        </form>
+    </fieldset>
+<span style="color: red">怪异盒模型</span>
+    <script>
+        let text=document.getElementById("text");
+        text.currentStyle.width=200;
+    </script>
+</body>
+</html>

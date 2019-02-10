@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>d3.axis</title>
+    <script src="../../resource/d3.min.js"></script>
+    <style>
+        .axis path {
+
+        }
+
+        .axis line {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+
+        .axis text {
+            font-family: sans-serif;
+            font-size: 11px;
+            color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+<script>
+	// 初始化画布
+	var width = 600;
+	var height = 600;
+	var svg = d3.select("body")
+		.append("svg")
+		.attr("width", width)
+		.attr("height", height);
+
+	var dataset = [2.5, 2.1, 1.7, 1.3, 0.9];
+	var textArray = ["一", "二", "三", "四", "五"];
+	var rectHeight = 25;
+	// 定义比例尺
+	var linear = d3.scaleLinear()
+		.domain([d3.min(dataset), d3.max(dataset)])
+		// .domain(textArray)
+		.range([1, 500]);
+	// 定义坐标轴样式
+	var axis1 = d3.axisBottom()
+		.scale(linear)
+		.ticks(7);
+	// 绘制直方图
+	svg.selectAll("rect")
+		.data(dataset)
+		.enter()
+		.append("rect")
+		.attr("x", 20)
+		.attr("y", function (d, i) {
+			return i * rectHeight;
+		})
+		.attr("width", function (d) {
+			return linear(d);
+		})
+		.attr("height", rectHeight - 2)
+		.attr("fill", "steelblue");
+	// 将坐标轴放进svg画布中
+	/*svg.append("g")
+		.attr("transform", "translate(20,130)")
+		.attr("class", 'axis')
+		.call(axis)*/
+	// case 2
+	axis1(svg.append("g").attr("transform", "translate(20,130)").attr("class", "axis"));
+</script>
+</body>
+</html>

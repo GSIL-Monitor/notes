@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="Ajax_plugins.js"></script>
+</head>
+<body>
+<input type="file" id="input">
+<input id="btn" class="btn" type="button" value="上传" onclick="upload()">
+<script>
+    let input = document.getElementById("input");
+
+    function upload() {
+        let formData = new FormData();
+        formData.append("file", input.files[0]);
+        let url = "http://localhost:10108/test";
+        let method = "POST";
+        let async = true;
+        let xhr = Ajax(url, method, formData, async);
+        xhr.upload.onprogress = function (e) {
+            console.log("upload progress:", e.loaded / e.total * 100 + "%");
+        };
+        xhr.upload.onload = function () {
+            console.log("upload onload");
+        };
+        xhr.onload = function () {
+            console.log("onLoad")
+        };
+    }
+</script>
+</body>
+</html>

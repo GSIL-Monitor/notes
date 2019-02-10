@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #root {
+            width: 10rem;
+            height: 10rem;
+        }
+    </style>
+</head>
+<body>
+<span>启动服务器之后才有效</span>
+<div id="root">root</div>
+<button id="btn">点我切换文本</button>
+<script>
+    // node-server 服务器
+    let btn = document.getElementById("btn");
+    let root = document.getElementById("root");
+    let url = "http://localhost:8080/jsonp?callback=monkey";
+
+    function monkey(data) {
+        root.innerText = data.name;
+    }
+
+    btn.addEventListener('click', function () {
+        let script = document.createElement('script');
+        script.setAttribute('type', 'text/javascript');
+        script.src = url;
+        document.body.appendChild(script);
+    })
+</script>
+</body>
+</html>

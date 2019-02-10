@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #root {
+            width: 10rem;
+            height: 10rem;
+        }
+    </style>
+</head>
+<body>
+<div id="root">root</div>
+<button id="btn">点我切换文本</button>
+<script>
+    var btn = document.getElementById("btn");
+    var root = document.getElementById("root");
+    btn.addEventListener('click', function () {
+        let xhr = new XMLHttpRequest();
+        let url = "localData.txt";
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    root.innerHTML = xhr.responseText;
+                }
+            }
+        };
+        xhr.open("get", url, true);
+        xhr.send();
+    }, false);
+</script>
+</body>
+</html>

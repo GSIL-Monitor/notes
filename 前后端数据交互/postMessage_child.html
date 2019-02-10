@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--整个页面都是子窗口-->
+<form>
+    <p>
+        <label for="message" style="color:red;font-size:24px;">子窗口给父窗口发送信息:</label>
+        <input type="text" name="message" id="message"/>
+        <input type="submit" id="submit"/>
+    </p>
+</form>
+<hr>
+<p id="test2">暂无信息。</p>
+<script>
+    var parentwin = window.parent;
+    document.getElementById("submit").onclick = function (e) {
+        e.preventDefault();
+        // 提交按钮之后，将数据发送给了 http://localhost
+        parentwin.postMessage(document.getElementById("message").value, "http://localhost");
+    };
+    window.addEventListener("message", function (e) {
+        document.getElementById("test2").innerHTML = "父窗口通过(" + e.origin + ")那里传过来的消息:\n(" + e.data + ")";
+        /*// 父窗口 发送 数据 到 http://localhost
+        parentwin.postMessage('HI!父窗口，你给我发了"<span>'+e.data+'"</span>。',"http://localhost");*/
+    }, false);
+</script>
+</body>
+</html>

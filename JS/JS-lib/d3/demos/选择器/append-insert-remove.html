@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>selector.append</title>
+    <script src="../../resource/d3.min.js"></script>
+</head>
+<body>
+<div>div1</div>
+<div class="div2">div2</div>
+<div class="div3">div3</div>
+<script>
+    d3.select("body").append("p").text("append p element");
+    d3.select("body").insert("p",".div3").text("insert p element before div3")
+    d3.select("body").select(".div2").remove();
+
+    // 插入带属性的元素
+    d3.select("body").append("p").text("append p element with attr").attr("id","p2");
+    d3.select("#p2").style("color","red");
+</script>
+</body>
+</html>

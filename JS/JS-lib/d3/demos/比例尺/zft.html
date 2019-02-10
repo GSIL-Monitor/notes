@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>直方图</title>
+    <script src="../../resource/d3.min.js"></script>
+</head>
+<body>
+<script>
+    var padding={top:60,right:60,bottom:60,left:60}
+    var width=600,height=600;
+    var svg=d3.select("body")
+      .append("svg")
+    .attr("width",width)
+    .attr("height",height);
+    var dataset=[10,20,30,23,13,40,27,35,20];
+    var g=svg.append("g").attr("transform","translate("+padding.top+","+padding.left+")");
+    var xScale=d3.scaleBand().domain(d3.range(dataset.length)).rangeRound([0,width-padding.left-padding.right]);// 输入定义域中的值，会得到值域中的值
+    var xAxis=d3.axisBottom(xScale);
+    var yScale=d3.scaleLinear().domain([0,d3.max(dataset)]).range([height-padding.top-padding.bottom,0])
+    var yAxis=d3.axisLeft(yScale);
+
+    // 插入坐标轴
+    //添加x轴
+    svg.append("g")
+	    .attr("class", "axis")
+	    .attr("transform", "translate(" + padding.left + "," + (height - padding.bottom) + ")")
+	    .call(xAxis);
+
+    //添加y轴
+    svg.append("g")
+	    .attr("class", "axis")
+	    .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+	    .call(yAxis);
+
+
+    // 定义一堆g元素，用来存放直方图的矩形
+    var gs=g.selectAll("rect").data(dataset).enter().append("g");
+    var rectPadding = 20;//矩形之间的间隙
+    gs.append("rect")
+	    .attr("x",function(d,i){
+	    	console.log(xScale(i));// 此处的i传进定义域，返回值域数据
+		    return xScale(i)+rectPadding/2;
+	    })
+	    .attr("y",function(d){
+		    // return yScale(d);// 同理
+            var min = yScale.domain()[0];
+            return yScale(min);//可以得知，这里返回的是最大值
+	    })
+	    .attr("width",function(){
+		    return xScale.step()-rectPadding;
+	    })
+	    .attr("height",function(d){
+		    return 0;
+	    })
+	    .attr("fill","blue")
+	    .transition()//添加过渡
+	    .duration(2000)//持续时间
+	    .delay(function(d,i){//延迟
+		    return i*400;
+	    })
+	    //.ease(d3.easeElasticInOut)//这里读者可以自己将注释去掉，看看效果（chrome浏览器会报错，但是不影响效果）
+	    .attr("y",function(d){//回到最终状态
+		    return yScale(d);
+	    })
+	    .attr("height",function(d){//回到最终状态
+		    return height-padding.top-padding.bottom-yScale(d);
+	    })
+
+    // 在描绘矩形的那些gs标签中再添加文本标签
+    gs.append("text")
+	    .attr("x",function(d,i){
+		    return xScale(i)+rectPadding/2;
+	    })
+	    .attr("y",function(d){
+		    return 0;
+	    })
+	    .attr("dx",function(){
+		    return xScale.step()-rectPadding*2.4
+	    })
+	    .attr("dy",20)
+	    .text(function(d){
+		    return d;
+	    })
+	    .transition()
+	    .duration(2000)
+	    .delay(function(d,i){
+		    return i*400;
+	    })
+	    .attr("y",function(d){
+		    return yScale(d);
+	    });
+
+
+</script>
+</body>
+</html>

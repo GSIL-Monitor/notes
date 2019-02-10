@@ -1,0 +1,18 @@
+div{
+    display: none;
+    /**/
+    visibility: hidden;
+    /**/
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    /**/
+    z-index:-9999;
+    /**/
+    opacity: 0;
+    /*外部div宽高设置为0*/
+    overflow: hidden;
+    /**/
+    transform: scale(0);
+
+}

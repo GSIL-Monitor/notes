@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="Ajax_plugins.js"></script>
+</head>
+<body>
+<button id="btn">按钮</button>
+<script>
+    let btn = document.getElementById("btn");
+    btn.onclick = function () {
+        // 这个服务器端可以获取
+        let url = "https://user-gold-cdn.xitu.io/2017/3/15/c6eacd7c2f4307f34cd45e93885d1cb6.png";
+        // let url="clipboard.png";//也可以本地读取
+        let method = "GET";
+        let xhr = Ajax(url, method, "", true);
+        // 设定响应类型
+        xhr.responseType = "blob";
+        xhr.onload = function () {
+            if (this.status === 200) {
+                let blob = this.response;
+                let img = document.createElement("img");
+                //方案一
+                /*img.src=window.URL.createObjectURL(blob);
+                img.onload=function () {
+                    window.URL.revokeObjectURL(img.src);
+                };*/
+                //方案二
+                /*let reader=new FileReader();
+                reader.readAsDataURL(blob);//FileReader将返回base64编码的data-uri对象
+                reader.onload=function(){
+                    img.src=this.result;
+                }*/
+                //方案三
+                /*img.src=url;
+                document.body.appendChild(img);*/
+            }
+        }
+    };
+</script>
+</body>
+</html>

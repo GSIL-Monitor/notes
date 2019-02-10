@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="component-demo">
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+</div>
+<script>
+    Vue.component('buttonCounter',{
+        // 一个组件的 data 选项必须是一个函数，否则就会变为多个组件共用同一个数据
+        data:function () {
+            return {
+                //注意当点击按钮时，每个组件都会各自独立维护它的 count。因为你每用一次组件，就会有一个它的新实例被创建。
+                count:0,
+            }
+        },
+        template:'<button @click="count++"> you clicked me {{count}} times.</button>'
+    });
+    // 指定存在的 DOM 元素作为 Vue 实例的挂载目标
+    new Vue({el:'#component-demo'});
+</script>
+</body>
+</html>

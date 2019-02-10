@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="div1">
+    {{a}}
+</div>
+<div id="div2">
+    def
+</div>
+<script>
+    // 将一个名为vm的Vue组件，插入在id为div1的元素内部
+    let vm=new Vue({
+        el:'#div1',
+        data:function () {
+            return {
+                a:1,
+            }
+        }
+    });
+    // 将一个Vue组件，插入在id为div1的元素内部
+    new Vue({
+        el:'#div2',
+    })
+</script>
+</body>
+</html>

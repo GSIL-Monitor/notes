@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form>
+    <p>
+        <label for="message" style="color:red;font-size:24px;">输入并提交信息给iframe窗口:</label>
+        <input type="text" name="message" id="message"/>
+        <input type="submit" value="submit" id="submit"/>
+    </p>
+</form>
+<hr>
+<h4>目标iframe传来的信息：</h4>
+<p id="test">暂无信息</p>
+
+<iframe id="iframe"
+        src="http://localhost/postMessage_child.html"></iframe>
+<script>
+    // 1
+    var win = document.getElementById("iframe").contentWindow;
+    // 2
+    document.getElementById("submit").onclick = function (e) {
+        e.preventDefault();
+        // 向跨域的 frame 界面传递数据
+        win.postMessage(document.getElementById("message").value, "http://localhost");
+    };
+    // 3
+    window.addEventListener("message", function (e) {
+        e.preventDefault();
+        document.getElementById("test").innerHTML = "子窗口通过(" + e.origin + ")那里传过来的消息:\n(" + e.data + ")";
+    }, false);
+</script>
+</body>
+</html>

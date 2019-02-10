@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>d3.</title>
+    <script src="../../resource/d3.min.js"></script>
+</head>
+<body>
+    <p></p>
+    <p></p>
+    <p></p>
+<script>
+    // 数据数量大于元素时，通过enter添加足够的元素来匹配等量的数据
+    // xxx.enter() : 包含了所有没有被可视化啊的数据
+   var dataset=[1,2,3,4,5,6,7,8,9];
+    // update 表示匹配上的元素
+   var update=d3.selectAll("p").data(dataset)// //绑定数据,并得到update部分
+    // enter表示多余的数据
+    var enter=update.enter(); // 得到enter部分
+
+    // 对update进行处理
+    update.text(function (d, i) {
+      return 10+d;
+    });
+
+    // 对enter的处理
+    var pEnter=enter.append("p"); // 为多出的数据添加p元素
+    pEnter.text(function (d, i) {
+      return d;
+    })
+</script>
+</body>
+</html>

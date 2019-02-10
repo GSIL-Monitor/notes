@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    function getData(url, fn) {
+        let iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.src = url;
+        iframe.onload = function () {
+            fn(iframe.contentWindow.location.hash.substring(1));
+            window.location.hash = "";
+            document.body.removeChild(iframe);
+        };
+        document.body.appendChild(iframe);
+    }
+
+    let url = "http://localhost:8080/data.php";
+    getData(url, function (data) {
+        let jsonData = JSON.parse(data);
+        console.log(jsonData.name + " " + jsonData.age);
+    })
+</script>
+</body>
+</html>

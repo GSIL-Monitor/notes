@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>d3.scaleLinear</title>
+    <script src="../../resource/d3.min.js"></script>
+</head>
+<body>
+<script>
+    var dataset=[1.2, 2.3, 0.9, 1.5, 3.3];
+    var min=d3.min(dataset);
+    var max=d3.max(dataset);
+    // 将 dataset 中最小的值，映射成 0；将最大的值，映射成 300。
+    var linear = d3.scaleLinear() //  线性比例尺
+        .domain([min,max])  // 设置定义域[0.9,3.3]
+        .range([0,300]);    // 设置值域[0,300]
+
+    console.log(linear(0.9));
+    console.log(linear(1.2));
+    console.log(linear(2.3));
+    console.log(linear(1.5));
+    console.log(linear(3.3));
+
+    var index=[0,1,2,3,4];
+    var color=["red","blue","green","yellow","black"];
+    var ordinal=d3.scaleOrdinal() //  序数比例尺
+        .domain(index)
+        .range(color)
+    console.log(ordinal(0));
+    console.log(ordinal(2));
+    console.log(ordinal(4));
+</script>
+</body>
+</html>

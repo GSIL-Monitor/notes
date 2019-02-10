@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="text-input">
+    <custom-input
+        v-model="searchText"
+    ></custom-input>
+</div>
+<script>
+    Vue.component('custom-input',{
+        props:['value'],
+        template:`
+        <div>
+            <input
+                v-bind:value="value"
+                v-on:input="$emit('input',$event.target.value)"
+            />
+            <p>Message is: {{ value }}</p>
+        </div>
+        `
+    });
+    new Vue({
+        el:'#text-input',
+        data:{
+            searchText:"123",
+        }
+    });
+</script>
+</body>
+</html>

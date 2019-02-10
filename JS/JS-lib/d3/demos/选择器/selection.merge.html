@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>d3.</title>
+    <script src="../../resource/d3.min.js"></script>
+</head>
+<body>
+<div class="div1">
+    abc
+</div>
+<div class="div2">
+    def
+</div>
+<script>
+
+    var div1=d3.select("div1");
+    var div2=d3.select("div2");
+    var sum=div1.merge(div2);
+
+    console.log(sum);
+
+</script>
+</body>
+</html>

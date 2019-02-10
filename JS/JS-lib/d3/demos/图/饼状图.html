@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>d3.</title>
+    <script src="../../resource/d3.min.js"></script>
+</head>
+<body>
+<script>
+	// svg图
+	var padding = {top: 60, right: 60, bottom: 60, left: 60};
+	var width = 600, height = 600;
+	var svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
+	var g = svg.append("g").attr("transform", "translate(" + padding.top + "," + padding.left + ")");
+	// 初始化数据和颜色比例尺
+	var dataset = [30, 10, 43, 55, 13];
+	var colorScale = d3.scaleOrdinal().domain(d3.range(dataset.length)).range(d3.schemeCategory10);
+	// 初始化一个饼
+	/*
+        d3.pie - 创建一个新的饼图生成器.
+        pie - 根据指定的数据计算每条数据对应环形的角度.
+        pie.value - 设置值访问器.
+        pie.sort - 设置排序比较器.
+        pie.sortValues - 设置排序比较器.
+        pie.startAngle - 设置所有环形的起始角度.
+        pie.endAngle - 设置所有环形的终止角度.
+        pie.padAngle - 设置相邻两个环之间的间隙角度.
+    */
+	// 初始化弧
+	/*
+        d3.arc - 创建一个环生成器.
+        arc - 根据指定的数据生成环.
+        arc.centroid - 计算环的中心点.
+        arc.innerRadius - 设置环的内半径.
+        arc.outerRadius - 设置环的外半径.
+        arc.cornerRadius - 设置拐角半径.
+        arc.startAngle - 设置起始角度.
+        arc.endAngle - 设置终止角度.
+        arc.padAngle - 设置相邻两个环之间的间隙角度.
+        arc.padRadius - set the radius at which to linearize padding.
+        arc.context - 设置渲染上下文.
+    */
+	var arc_generator = d3.arc()
+		.innerRadius(0)
+		.outerRadius(100);
+
+	// 生成饼状图数据
+	var pie = d3.pie();
+	var pieData = pie(dataset);
+	console.log(pieData);
+	// 使用饼状图数据画图
+	var gs = g.selectAll("g").data(pieData).enter().append("g")
+		.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+	// 绘制弧形
+	gs.append("path")
+		.attr("d", function (d) {
+			return arc_generator(d);// 往弧形生成器中出入数据
+		})
+		.attr("fill", function (d, i) {
+			return colorScale(i);// 设置颜色
+		});
+	// 为饼状图添加指定文字
+	gs.append("text")
+		.attr("transform", function (d) {//位置设在中心处
+			console.log(arc_generator.centroid(d));
+			return "translate(" + arc_generator.centroid(d) + ")";
+		})
+		.attr("text-anchor", "middle")
+		.text(function (d) {
+			return d.data;
+		});
+
+
+		/**
+         * 步骤：
+         *  1.初始化svg、数据dataset与颜色比例尺colorScale
+         *  2.初始化弧形生成器，确定饼状图的基本样式
+         *  3.使用d3.pie将dataset装换为弧形图生成器能够使用的pieData数据
+         *  4.在画布svg中的g下面新建与pieData数据匹配数量的g元素
+         *  5.在g元素里面添加path，和text分别代表弧形和文本
+         *  6.在path和text的内部使用弧形生成器生成指定的内容
+         * */
+</script>
+</body>
+</html>

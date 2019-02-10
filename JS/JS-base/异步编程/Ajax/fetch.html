@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var word = "123", url = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + word + '&json=1&p=3';
+    // fetch可以设置不同的模式使得请求有效.
+    // fetch(url,{mode:"no-cors"}).then(function (res) {
+    fetch(url).then(function (res) {
+        console.log("第一次进入then...");
+        console.log(res);
+        if (res.status >= 200 && res.status < 300) {
+            console.log("Content-Type:" + res.headers.get("Content-Type"));
+            console.log("Data:" + res.headers.get("Data"));
+            console.log("status:" + res.status);
+            console.log("statusText:" + res.statusText);
+            console.log("type:" + res.type);
+            console.log("Content-Type:" + res.url);
+            return Promise.resolve(res);
+        } else {
+            console.log(res.statusText);
+            return Promise.reject();
+        }
+    }).then(function (data) {
+        console.log("第二次进入then...");
+        console.log(data);
+    }).catch(function (e) {
+        console.log("抛出错误如下");
+        console.log(e);
+    })
+</script>
+</body>
+</html>

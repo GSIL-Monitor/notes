@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html</title>
+    <script type="text/javascript" src="jquery-1.12.1.js"></script>
+</head>
+<body>
+<div>A页面</div>
+<iframe
+        style="display : none"
+        name="iframe1"
+        id="iframe"
+        src="http://b.geekjc.com/1.html"
+        frameborder="0"
+></iframe>
+<script type="text/javascript">
+    $(function () {
+        try {
+            document.domain = "geekjc.com"
+        } catch (e) {
+
+        }
+        $("#iframe").load(function () {
+            var jq = document.getElementById('iframe').contentWindow.$
+            jq.get("http://geekjc.com/test.json", function (data) {
+                console.log(data);
+            });
+        })
+    })
+</script>
+</body>
+</html>
+<!--需要两个页面都要手动指定document.domain-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html</title>
+    <script type="text/javascript" src="jquery-1.12.1.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            try {
+                document.domain = "geekjc.com";
+            } catch (e) {
+
+            }
+        })
+    </script>
+</head>
+<body>
+<div id="div1">B页面</div>
+</body>
+</html>
